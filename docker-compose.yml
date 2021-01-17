@@ -1,0 +1,46 @@
+version: "3.7"
+services:
+  app:
+    build:
+      args:
+        user: app
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    container_name: lara-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - ./app:/var/www
+    networks:
+      - net
+
+  db:
+    image: mariadb
+    container_name: lara-db
+    restart: on-failure
+    environment:
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: 123456
+    ports:
+      - 3306:3306
+    volumes:
+      - ./database:/var/lib/mysql
+    networks:
+      - net
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - 8000:80
+    volumes:
+      - ./app:/var/www
+      - ./nginx:/etc/nginx/conf.d/
+    networks:
+      - net
+
+networks:
+  net:
+    driver: bridge

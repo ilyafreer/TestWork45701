@@ -1,0 +1,19 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+// Icons
+@import "node_modules/font-awesome/scss/font-awesome.scss";
+
+.professions{
+    margin-top: 30px;
+    .cursor-pointer{
+        cursor: pointer;
+    }
+}
+
